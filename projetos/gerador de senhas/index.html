@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,35 +10,56 @@
     <h1>Gerador de senha</h1>
     <p>Utilize o nosso gerador online para criar uma senha forte e segura.</p>
 
-    <input type="text" name="password" id="password" />
+    <input type="text" name="password" id="password" value="" placeholder="senha"/>
+    <span id="tamanho">16</span>
 
     <input
       type="range"
-      name="password-length"
+      name="psswaord-length"
       id="password-length"
       value="16"
       min="4"
       max="64"
     />
 
-    <button>Copiar senha</button>
+    <button onclick="generatePassword()">Copiar senha</button>
 
     <script>
+      let range = 16
       function generatePassword() {
         const chars =
           "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789?!@&*()[]"
 
         let password = ""
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < range; i++) {
           const randomNumber = Math.floor(Math.random() * chars.length)
           password += chars.substring(randomNumber, randomNumber + 1)
         }
 
         console.log(password)
+
+        const senha = document.getElementById('password')
+        senha.value=password
       }
 
+      const btnRange = document.querySelector('#password-length')
+      const div = document.querySelector('#tamanho')
+
+      btnRange.addEventListener('input', () => {
+        range = btnRange.value
+        console.log(range)
+
+        div.textContent = range
+
+
+        generatePassword()
+      })
+
+
       generatePassword()
+
+
     </script>
   </body>
 </html>
